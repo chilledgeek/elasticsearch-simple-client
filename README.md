@@ -70,6 +70,9 @@ searcher.execute_search(musts=["exact match with some fuzziness"],
       }
   }
   ```
+## Clearing elasticsearch indices
+- https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html
+- `curl -X DELETE "localhost:9200/<index_name>"`
 
 ## Future work
 - Set up for multiple tag (not all transactions should have just one category? 
