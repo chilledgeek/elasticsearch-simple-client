@@ -11,7 +11,7 @@ class Config:
     def default(cls):
         output = cls()
         output.es_url = "http://localhost:9200/" if os.environ.get("ES_URL") is None else os.environ["ES_URL"]
-        output.query_return_length = 10 if os.environ.get("QUERY_RETURN_LENGTH") is None else os.environ[
+        output.query_return_length = 5 if os.environ.get("QUERY_RETURN_LENGTH") is None else os.environ[
             "QUERY_RETURN_LENGTH"]
 
         return output
