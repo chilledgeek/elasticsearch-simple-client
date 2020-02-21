@@ -1,6 +1,13 @@
-# Elasticsearch with Python Proof of Concept (PoC)
+# Elasticsearch simple client
+| Code quality checks  | Status |
+| ------------- |:-------------:|
+| CodeFactor      |  [![Codefactor](https://www.codefactor.io/repository/github/chilledgeek/elasticsearch-simple-client/badge?style=plastic)](https://www.codefactor.io/repository/github/chilledgeek/elasticsearch-simple-client) |
+| CircleCI |  [![CircleCI](https://circleci.com/gh/chilledgeek/elasticsearch-simple-client.svg?style=svg)](https://circleci.com/gh/chilledgeek/elasticsearch-simple-client)|
+| Codecov | [![codecov](https://codecov.io/gh/chilledgeek/elasticsearch-simple-client/branch/master/graph/badge.svg)](https://codecov.io/gh/chilledgeek/elasticsearch-simple-client)|
+
 ## Background
-- This repo has some code and notes on exploring the use of elasticsearch with python
+- This repo is a package that interfaces with elasticsearch that allows simple data uploading and querying
+- some code and notes on exploring the use of elasticsearch with python
 - Sample dataset is a set of transactions with roughly annotated categories
 - Index is the description (spaces substituted with hyphens), each entry with a description and category field
 - One of the aims is to load such transactions to elasticsearch and use the fuzzy matching to see how well it does 

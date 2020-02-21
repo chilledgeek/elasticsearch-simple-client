@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build_and_test:
+    docker:
+      - image: circleci/python:3.8.0-buster
+    steps:
+      - checkout
+      - run:
+          name: Set up workdir
+          command: sudo mkdir -p /workdir && sudo chmod -R 777 /workdir
+
+      - run:
+          name: Install package
+          command: cd /workdir && sudo pip install -r requirements.txt
+
+      - run:
+          name: Install test and quality check packages
+          command: sudo pip install coverage codecov
+
+      - run:
+          name: Test
+          command: coverage run --omit="*/test_*.py" -m unittest
+
+      - run:
+          name: Upload report
+          command: codecov
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build_and_test
