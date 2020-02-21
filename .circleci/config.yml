@@ -11,7 +11,7 @@ jobs:
 
       - run:
           name: Install package
-          command: cd /workdir && sudo pip install .
+          command: sudo pip install .
 
       - run:
           name: Install test and quality check packages
