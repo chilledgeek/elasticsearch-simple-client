@@ -35,8 +35,8 @@ class UploadQueryBuilder:
 
         keys = df.keys()
 
-        items = [self._build_entry_header(index=index, id_for_entry=entry[0]) +
+        items = [self._build_entry_header(index=index, id_for_entry=entry[0]) + "\n" +
                  self._build_entry_data(keys, entry)
                  for entry in df.values]
 
-        return "".join(items)
+        return "\n".join(items)

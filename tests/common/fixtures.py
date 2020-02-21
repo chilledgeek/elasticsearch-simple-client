@@ -18,7 +18,7 @@ class Fixtures:
 
     @staticmethod
     def get_upload_query():
-        return "".join(
+        return "\n".join(
             [
                 '{"index": {"_index": "simple_text", "_id": "column1value1"}}',
                 '{"column1": "column1value1", "column2": "column2value1", "column3": "column3value1"}',
