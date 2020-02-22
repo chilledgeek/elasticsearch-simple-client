@@ -44,7 +44,7 @@ just run this in command line:
   - `curl -X DELETE "localhost:9200/<index_name>"`
 
 ## Sample Application (categorising new short text descriptions)
-- An [example notebook](example/Categorisation of short text descriptions.ipynb) is included in this repo to demonstrate
+- An [example notebook]("example/Categorisation%20of%20short%20text%20descriptions.ipynb") is included in this repo to demonstrate
 how this code can be used.
 - The use case in this example is to categorise account transactions based on description
 (e.g. the description "ANSTRUTHER FISH BAR AND ANSTRUTHER GBR" should be categorised as "EAT OUT")
