@@ -55,4 +55,6 @@ how this code can be used.
 - While machine learning models can also be trained using transactions with known descriptions,
 this example demonstrates that fuzzy string matching on its own can sometimes be a simpler yet elegant solution
 
-![elasticsearch_and_ml_performance](https://user-images.githubusercontent.com/44337585/75066979-ef75b700-54e3-11ea-8249-8e1d9fa31bdf.png)
+
+![test_accuracy](https://user-images.githubusercontent.com/44337585/75094710-c86fc180-5585-11ea-9bc0-5909f8a54a4e.png)
+![balanced_test_accuracy](https://user-images.githubusercontent.com/44337585/75094708-c73e9480-5585-11ea-8623-3c40810d7f8f.png)
