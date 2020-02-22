@@ -6,33 +6,27 @@
 | Codecov | [![codecov](https://codecov.io/gh/chilledgeek/elasticsearch-simple-client/branch/master/graph/badge.svg)](https://codecov.io/gh/chilledgeek/elasticsearch-simple-client)|
 
 ## Background
-- This repo is a package that interfaces with elasticsearch that allows simple data uploading and querying
-- some code and notes on exploring the use of elasticsearch with python
-- Sample dataset is a set of transactions with roughly annotated categories
-- Index is the description (spaces substituted with hyphens), each entry with a description and category field
-- One of the aims is to load such transactions to elasticsearch and use the fuzzy matching to see how well it does 
-in predicting new transactions
-- This will be compared to a supervised machine learning approach
+- This repo is a package that interfaces with [elasticsearch](https://www.elastic.co/) that allows simple data uploading and querying with python
+- Below are some basic instructions on how to use the code.
+- A sample use case for this code is also illustrated at the end of this readme
 
-## Setting up
-- To start elasticsearch docker:
-  - `sudo docker pull elasticsearch:7.5.2`
-  - `docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.5.2`
+## How to use
+### Starting the elasticsearch docker run
+- `sudo docker pull elasticsearch:7.5.2`
+- `docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.5.2`
 
-## Loading data using python (from a dataframe)
+### Loading from a csv
 ```
 import pandas as pd
-
-from elasticsearch_with_python_poc.uploader import Uploader
+from elasticsearch_simple_client.uploader import Uploader
 
 uploader = Uploader()
-df = pd.read_csv("tests/common/annotated_descriptions.csv"))
+df = pd.read_csv("example/descriptions_with_categories.csv"))
 
-uploader.post_df_as_body_to_elasticsearch(df)
+uploader.post_df(df)
 ```
 
-## Searching data
-### Python
+### Searching data
 ```
 import pandas as pd
 
@@ -40,47 +34,25 @@ from elasticsearch_with_python_poc.searcher import Searcher
 
 searcher = Searcher()
 
-searcher.execute_search(musts=["exact match with some fuzziness"], 
-                        shoulds=["less exact matches allowed"])
+result = searcher.execute_search(musts=["exact match with some fuzziness"], 
+                                 shoulds=["less exact matches allowed"])
 ```
-### Via a web get (e.g. using postman)
-- Send a GET to 'https:localhost:9200/_search'
-- ``` json
-  {
-      "from": 0,
-      "size": 20,
-      "query": {
-          "bool": {
-              "must": [
-                  {
-                      "match": {
-                          "description": {
-                              "query": "AMAZON",
-                              "fuzziness": "AUTO",
-                              "prefix_length": 0
-                          }
-                      }
-                  }
-              ],
-              "should": [
-                  {
-                      "match": {
-                          "description": {
-                              "query": "MARKETPLACE",
-                              "fuzziness": "AUTO",
-                              "prefix_length": 0
-                          }
-                      }
-                  }
-              ]
-          }
-      }
-  }
-  ```
-## Clearing elasticsearch indices
-- https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html
-- `curl -X DELETE "localhost:9200/<index_name>"`
 
-## Future work
-- Set up for multiple tag (not all transactions should have just one category? 
-e.g. transactions at a petrol station can count as petrol, but sometimes one can buy snacks/food as well there)
+### Deleting data (not implemented by this python repo)
+- To [clear an elasticsearch index](https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-delete-index.html)
+just run this in command line:
+  - `curl -X DELETE "localhost:9200/<index_name>"`
+
+## Sample Application (categorising new short text descriptions)
+- An [example notebook](example/Categorisation of short text descriptions.ipynb) is included in this repo to demonstrate
+how this code can be used.
+- The use case in this example is to categorise account transactions based on description
+(e.g. the description "ANSTRUTHER FISH BAR AND ANSTRUTHER GBR" should be categorised as "EAT OUT")
+- Some anonymised data used in the notebook can be found [in the example folder](example/descriptions_with_categories.csv)
+- Once transactions (with known descriptions) are added to [elasticsearch](https://www.elastic.co/), the simple fuzzy string lookup function of 
+ [elasticsearch](https://www.elastic.co/) can be applied to predict new transactions simply by looking up the transaction (of known category) 
+ that best matches the new one
+- While machine learning models can also be trained using transactions with known descriptions,
+this example demonstrates that fuzzy string matching on its own can sometimes be a simpler yet elegant solution
+
+![elasticsearch_and_ml_performance](https://user-images.githubusercontent.com/44337585/75066979-ef75b700-54e3-11ea-8249-8e1d9fa31bdf.png)
