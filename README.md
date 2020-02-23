@@ -55,6 +55,3 @@ just run this in command line:
 - While machine learning models can also be trained using transactions with known descriptions,
 this example demonstrates that fuzzy string matching on its own can sometimes be a simpler yet elegant solution
 
-
-![test_accuracy](https://user-images.githubusercontent.com/44337585/75094710-c86fc180-5585-11ea-9bc0-5909f8a54a4e.png)
-![balanced_test_accuracy](https://user-images.githubusercontent.com/44337585/75094708-c73e9480-5585-11ea-8623-3c40810d7f8f.png)
